@@ -1,14 +1,8 @@
-FROM php:7.3.33-fpm
+FROM php:7.4.27-fpm
 
+# Installa le estensioni richieste
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
-## gd
-# RUN apt-get update && apt-get install -y \
-#         libfreetype6-dev \
-#         libjpeg62-turbo-dev \
-#         libpng-dev \
-#     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-#     && docker-php-ext-install -j$(nproc) gd
-
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+# Installazione Xdebug (assicurati che la versione sia compatibile con PHP 7.4.27)
+RUN pecl install xdebug-3.0.0 && docker-php-ext-enable xdebug
